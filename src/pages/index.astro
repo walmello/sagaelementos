@@ -31,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
                         <template x-for="(time, i) in times">
                             <div :style="{opacity: i > 2 ? '50%' : '100%'}">
                                 <div class="grid team" :style="'--stagger: ' + (i+1) + 's' " :class="time.Elemento.value">
-                                    <span x-text="i + 1 + '°'"></span>
+                                    <span class="align" x-text="i + 1 + '°'"></span>
                                     <div class="align">
                                         <span class="icon" x-show="time.Elemento.value == 'Fogo'">
                                             <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +80,10 @@ import Layout from '../layouts/Layout.astro';
         animation: fade-in 1s;
         animation-fill-mode: forwards;
         animation-timing-function: ease-in-out;
+        text-wrap: nowrap;
     }
+
+
     
     @keyframes fade-in {
         from {
@@ -116,6 +119,9 @@ import Layout from '../layouts/Layout.astro';
     
     .to-r {
         text-align: right;
+        display: flex;
+        justify-content: end;
+        align-items: center;
     }
     
     .trow {
@@ -206,10 +212,20 @@ import Layout from '../layouts/Layout.astro';
     }
 
     @media (max-width: 550px) {
+        h1 {
+            font-size: 2rem;
+        }
+
+        h1 span {
+            font-size: 2.5rem;
+        }
+
 		.copy {
 			display: flex;
             flex-direction: column;
             gap: 1rem;
+            text-align: center;
+            align-items: center;
 		}
 	}
     
