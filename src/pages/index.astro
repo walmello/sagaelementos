@@ -149,7 +149,7 @@ import Layout from '../layouts/Layout.astro';
                         <template x-for="(time, i) in times">
                             <div :style="{opacity: i > 2 ? '50%' : '100%'}">
                                 <div class="grid team" :style="'--stagger: ' + (i+1) + 's' " :class="time.Elemento.value">
-                                    <span class="align" x-text="i + 1 + '°'"></span>
+                                    <span class="rank align" x-text="i + 1 + '°'"></span>
                                     <div class="align">
                                         <span class="icon" x-show="time.Elemento.value == 'Fogo'">
                                             <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -265,6 +265,10 @@ import Layout from '../layouts/Layout.astro';
         animation-timing-function: ease-in-out;
         animation-delay: 0.5s;
         text-wrap: nowrap;
+    }
+
+    .rank {
+        font-size: 1.5rem !important;
     }
     
     .team {
