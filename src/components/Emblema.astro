@@ -124,6 +124,12 @@ import Medalha from "./Medalha.astro";
             transform: rotate(360deg);
         }
     }
+
+    @media (max-width: 550px) {
+        .glow, .star {
+            display: none;
+        }
+    }
 </style>
 
 <div class="emblema">
