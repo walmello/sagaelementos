@@ -1,0 +1,79 @@
+<style>
+    .position {
+        width: 2rem;
+        aspect-ratio: 1/1;
+        border-radius: 999999px;
+        background: #CACACA;
+        background: linear-gradient(179deg,rgba(202, 202, 202, 0.6) 0%, rgba(99, 99, 99, 0.6) 100%);
+        backdrop-filter: blur(2rem);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid white;
+        z-index: 5;
+    }
+
+    .medalha {
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-position: center;
+        width: fit-content;
+        padding: 2rem;
+        padding-top: 1rem;
+        color: white;
+        position: relative;
+        z-index: 5;
+        margin: auto;
+    }
+
+    .medalha.ouro {
+        background-image: url('./images/medalha/gold.svg');
+    }
+
+    .medalha.prata {
+        background-image: url('./images/medalha/silver.svg');
+    }
+
+    .medalha.bronze {
+        background-image: url('./images/medalha/bronze.svg');
+    }
+
+    .laurel {
+        position: absolute;
+        bottom: 40%;
+        width: 10rem;
+    }
+
+    @media (max-width: 550px) {
+        .position {
+            position: static;
+            margin-left: 1rem;
+        }
+
+        .medalha {
+
+        }
+    }
+
+</style>
+
+<div class="medalha ouro" x-show="parseInt(equipe.order) == 1">
+    <img class="laurel" src="./images/medalha/gold laurel.svg" alt="">
+    <span x-text="parseInt(equipe.order)"></span>
+</div>
+
+<div class="medalha prata" x-show="parseInt(equipe.order) == 2">
+    <img class="laurel" src="./images/medalha/silver laurel.svg" alt="">
+    <span x-text="parseInt(equipe.order)"></span>
+</div>
+
+<div class="medalha bronze" x-show="parseInt(equipe.order) == 3">
+    <img class="laurel" src="./images/medalha/bronze laurel.svg" alt="">
+    <span x-text="parseInt(equipe.order)"></span>
+</div>
+
+<div class="position" x-show="parseInt(equipe.order) > 3">
+    <span x-text="parseInt(equipe.order)"></span>
+</div>

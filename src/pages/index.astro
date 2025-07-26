@@ -1,361 +1,96 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Equipe from '../components/Equipe.astro';
+import Titulo from '../components/Titulo.astro';
+import Background from '../components/Background.astro';
+import Divider from '../components/Divider.astro';
+import Copyrigth from '../components/Copyrigth.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-    
-    <style>
-        .sphere {
-            --size: 20rem;
-            width: var(--size);
-            height: var(--size);
-            border-radius: 100%;
-            filter: blur(calc(var(--size) / 2));
-            position: absolute;
-            animation: float 4s ease-in-out infinite;
-            opacity: 0;
-            transition: 0.5 ease-in-out;
-        }    
-        
-        @keyframes float {
-            0% {
-                box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-                transform: translatey(0px);
-                opacity: 0.7;
-            }
-            50% {
-                box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-                transform: translatey(-20px);
-                opacity: 1;
-            }
-            100% {
-                box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-                transform: translatey(0px);
-                opacity: 0.7;
-            }
-        }
+<script is:inline src="./scripts/getTeams.js"></script>
 
-        @keyframes float-keep-opacity {
-            0% {
-                box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-                transform: translatey(0px);
-            }
-            50% {
-                box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-                transform: translatey(-20px);
-            }
-            100% {
-                box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-                transform: translatey(0px);
-            }
-        }
-
-        .sphere-wrapper {
-            width: 50rem;
-            height: 50rem;
-            max-height: 100vh;
-            max-width: 1200px;
-            animation: rotate 40s linear forwards infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.5;
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .background {
-            width: 100vw;
-            height: 100svh;
-            box-sizing: border-box;
-            position: fixed;
-            left: 0;
-            top: 0;
-            overflow: hidden;
-            display: flex;
-            align-items: start;
-            justify-content: center;
-            padding-top: 4rem;
-            transition: all 0s;
-        }
-
-        .saga-simbolo-bg {
-            width: 100%;
-            position: absolute;
-            animation: float-keep-opacity 4s ease-in-out infinite;
-            opacity: 0.1;
-            bottom: -10%;
-        }
-
-        @keyframes from-bottom {
-            0% {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            75% {
-                transform: translateY(-5%);
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-    </style>
-    
-    <div class="background">
-        <div class="sphere-wrapper">
-            <div class="sphere" style="background-color: red; left: 0; top: 0; animation-duration: 5s;"></div>
-            <div class="sphere" style="background-color: orange; right: 0; top: 0; animation-duration: 4s;"></div>
-            <div class="sphere" style="background-color: white; right: 0; bottom: 0; animation-duration: 6s;"></div>
-            <div class="sphere" style="background-color: cyan; left: 0; bottom: 0; animation-duration: 8s;"></div>
-        </div>
-
-        <img class="saga-simbolo-bg" src="./saga-simbolo.png" alt="">
-    </div>
-    
-    <div>
-        <h1>Desafio dos <br><span>4 Elementos</span></h1>
-        <script is:inline src="./scripts/getTeams.js"></script>
-        <div>
-            <div 
-            x-init="times = await buscarTimes()" 
-            x-data="{times: []}">
-            
-            <div x-show="!times">
-                Carregando...
-            </div>
-            
-            <div x-show="times">
-                <div>
-                    <div style="opacity: 60%;">
-                        <div class="grid table-title">
-                            <span></span>
-                            <span>Nome da Equipe</span>
-                            <span class="to-r">Pontos</span>
-                        </div>
-                    </div>
-                    <div class="teams">
-                        <template x-for="(time, i) in times">
-                            <div :style="{opacity: i > 2 ? '50%' : '100%'}">
-                                <div class="grid team" :style="'--stagger: ' + (i+1) + 's' " :class="time.Elemento.value">
-                                    <span class="rank align" x-text="i + 1 + '°'"></span>
-                                    <div class="align">
-                                        <span class="icon" x-show="time.Elemento.value == 'Fogo'">
-                                            <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M13.66 8.2C13.43 7.9 13.15 7.64 12.89 7.38C12.22 6.78 11.46 6.35 10.82 5.72C9.32999 4.26 8.99999 1.85 9.94999 0C8.99999 0.23 8.16999 0.75 7.45999 1.32C4.86999 3.4 3.84999 7.07 5.06999 10.22C5.10999 10.32 5.14999 10.42 5.14999 10.55C5.14999 10.77 4.99999 10.97 4.79999 11.05C4.56999 11.15 4.32999 11.09 4.13999 10.93C4.08323 10.8825 4.03577 10.8248 3.99999 10.76C2.86999 9.33 2.68999 7.28 3.44999 5.64C1.77999 7 0.869989 9.3 0.999989 11.47C1.05999 11.97 1.11999 12.47 1.28999 12.97C1.42999 13.57 1.69999 14.17 1.99999 14.7C3.07999 16.43 4.94999 17.67 6.95999 17.92C9.09999 18.19 11.39 17.8 13.03 16.32C14.86 14.66 15.5 12 14.56 9.72L14.43 9.46C14.22 9 13.66 8.2 13.66 8.2ZM10.5 14.5C10.22 14.74 9.75999 15 9.39999 15.1C8.27999 15.5 7.15999 14.94 6.49999 14.28C7.68999 14 8.39999 13.12 8.60999 12.23C8.77999 11.43 8.45999 10.77 8.32999 10C8.20999 9.26 8.22999 8.63 8.49999 7.94C8.68999 8.32 8.88999 8.7 9.12999 9C9.89999 10 11.11 10.44 11.37 11.8C11.41 11.94 11.43 12.08 11.43 12.23C11.46 13.05 11.1 13.95 10.5 14.5Z" fill="currentColor"/>
-                                            </svg>
-                                        </span> 
-                                        <span class="icon" x-show="time.Elemento.value == 'Agua'">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 20C10.4087 20 8.88258 19.3679 7.75736 18.2426C6.63214 17.1174 6 15.5913 6 14C6 10 12 3.25 12 3.25C12 3.25 18 10 18 14C18 15.5913 17.3679 17.1174 16.2426 18.2426C15.1174 19.3679 13.5913 20 12 20Z" fill="white"/>
-                                            </svg>
-                                        </span> 
-                                        <span class="icon" x-show="time.Elemento.value == 'Terra'">
-                                            <svg width="17" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M5.1685 0.838746C3.92679 0.839734 2.51655 1.54197 1.4731 3.2089C4.51413 2.16132 4.47683 4.02862 7.0599 4.7966C7.60925 5.58035 7.98428 6.56201 8.23939 7.89954C8.28476 8.29228 8.30062 8.71316 8.30363 9.14899C8.3105 10.16 8.22886 11.2427 8.17163 12.1448V12.1451C8.15422 12.4451 8.2995 12.9177 8.57046 13.4068C8.68841 13.6198 8.83034 13.8356 8.98228 14.0471C9.10882 11.4996 9.02713 9.18611 9.46653 7.11055C9.77247 6.27644 10.1851 5.57614 10.7055 4.99838C13.6101 4.36227 13.2466 2.48445 16.7626 3.57452C15.3615 1.89874 13.6608 1.20729 12.2785 1.23204C10.3916 1.26581 9.09821 2.63402 9.96922 4.65467C9.47947 5.24025 9.07814 5.92234 8.77169 6.69998C8.53652 5.87683 8.23135 5.17408 7.84571 4.56431C8.46317 2.36057 6.99922 0.837371 5.16846 0.838746H5.1685ZM6.68246 8.13991L3.43883 8.21584L0.456116 12.2974L3.55524 15.1858L7.42208 14.813L3.59614 16.3713L1.1306 14.0127L2.7506 17.6287L7.49478 18.8669L3.22446 18.6865L3.46363 19.2204L10.6401 21.2631L16.1328 18.2175V18.217L14.7718 16.2784L10.6976 18.0989L14.9573 15.0002L16.1646 16.8026L16.2411 13.3999L13.382 10.0377L10.991 9.49592L9.94233 11.0619L10.241 12.1857L9.83907 12.8217C9.81651 13.4976 9.78682 14.1964 9.73681 14.9172L10.7337 16.3147L9.18251 18.1069L9.84917 19.476L8.25434 17.9521L9.71313 16.2667L9.23644 15.5986L9.02675 15.3722C8.59637 14.9075 8.17953 14.3584 7.86797 13.796C7.65742 13.416 7.48941 13.0313 7.4125 12.6481L6.63399 11.0782L7.29287 9.35859L7.31668 9.35653L6.68246 8.13991Z" fill="currentColor"/>
-                                            </svg>
-                                        </span> 
-                                        <span class="icon" x-show="time.Elemento.value == 'Ar'">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.25 5.5C6.25 4.85721 6.44061 4.22886 6.79772 3.6944C7.15484 3.15994 7.66242 2.74338 8.25628 2.49739C8.85014 2.25141 9.50361 2.18705 10.134 2.31245C10.7645 2.43785 11.3436 2.74738 11.7981 3.2019C12.2526 3.65643 12.5622 4.23552 12.6876 4.86596C12.813 5.4964 12.7486 6.14986 12.5026 6.74372C12.2566 7.33758 11.8401 7.84516 11.3056 8.20228C10.7711 8.55939 10.1428 8.75 9.5 8.75H3C2.80109 8.75 2.61032 8.67098 2.46967 8.53033C2.32902 8.38968 2.25 8.19891 2.25 8C2.25 7.80109 2.32902 7.61032 2.46967 7.46967C2.61032 7.32902 2.80109 7.25 3 7.25H9.5C9.84612 7.25 10.1845 7.14737 10.4722 6.95507C10.76 6.76278 10.9843 6.48947 11.1168 6.1697C11.2492 5.84993 11.2839 5.49806 11.2164 5.15859C11.1489 4.81913 10.9822 4.50731 10.7374 4.26256C10.4927 4.01782 10.1809 3.85115 9.84141 3.78363C9.50194 3.7161 9.15007 3.75076 8.8303 3.88321C8.51053 4.01567 8.23722 4.23997 8.04493 4.52775C7.85264 4.81554 7.75 5.15388 7.75 5.5V5.857C7.75 6.05591 7.67098 6.24668 7.53033 6.38733C7.38968 6.52798 7.19891 6.607 7 6.607C6.80109 6.607 6.61032 6.52798 6.46967 6.38733C6.32902 6.24668 6.25 6.05591 6.25 5.857V5.5ZM14.25 7.5C14.25 6.65943 14.4993 5.83774 14.9663 5.13883C15.4333 4.43992 16.097 3.89519 16.8736 3.57351C17.6502 3.25184 18.5047 3.16768 19.3291 3.33166C20.1536 3.49565 20.9108 3.90042 21.5052 4.4948C22.0996 5.08917 22.5043 5.84645 22.6683 6.67087C22.8323 7.49529 22.7482 8.34982 22.4265 9.12641C22.1048 9.90299 21.5601 10.5668 20.8612 11.0337C20.1623 11.5007 19.3406 11.75 18.5 11.75H2C1.80109 11.75 1.61032 11.671 1.46967 11.5303C1.32902 11.3897 1.25 11.1989 1.25 11C1.25 10.8011 1.32902 10.6103 1.46967 10.4697C1.61032 10.329 1.80109 10.25 2 10.25H18.5C19.0439 10.25 19.5756 10.0887 20.0278 9.78654C20.4801 9.48437 20.8325 9.05488 21.0407 8.55238C21.2488 8.04988 21.3033 7.49695 21.1972 6.9635C21.091 6.43006 20.8291 5.94005 20.4445 5.55546C20.0599 5.17086 19.5699 4.90895 19.0365 4.80284C18.5031 4.69673 17.9501 4.75119 17.4476 4.95933C16.9451 5.16747 16.5156 5.51995 16.2135 5.97218C15.9113 6.42442 15.75 6.9561 15.75 7.5V8C15.75 8.19891 15.671 8.38968 15.5303 8.53033C15.3897 8.67098 15.1989 8.75 15 8.75C14.8011 8.75 14.6103 8.67098 14.4697 8.53033C14.329 8.38968 14.25 8.19891 14.25 8V7.5ZM3.25 14C3.25 13.8011 3.32902 13.6103 3.46967 13.4697C3.61032 13.329 3.80109 13.25 4 13.25H18.5C19.3406 13.25 20.1623 13.4993 20.8612 13.9663C21.5601 14.4333 22.1048 15.097 22.4265 15.8736C22.7482 16.6502 22.8323 17.5047 22.6683 18.3291C22.5043 19.1536 22.0996 19.9108 21.5052 20.5052C20.9108 21.0996 20.1536 21.5044 19.3291 21.6683C18.5047 21.8323 17.6502 21.7482 16.8736 21.4265C16.097 21.1048 15.4333 20.5601 14.9663 19.8612C14.4993 19.1623 14.25 18.3406 14.25 17.5V17C14.25 16.8011 14.329 16.6103 14.4697 16.4697C14.6103 16.329 14.8011 16.25 15 16.25C15.1989 16.25 15.3897 16.329 15.5303 16.4697C15.671 16.6103 15.75 16.8011 15.75 17V17.5C15.75 18.0439 15.9113 18.5756 16.2135 19.0278C16.5156 19.4801 16.9451 19.8325 17.4476 20.0407C17.9501 20.2488 18.5031 20.3033 19.0365 20.1972C19.5699 20.0911 20.0599 19.8291 20.4445 19.4445C20.8291 19.06 21.091 18.5699 21.1972 18.0365C21.3033 17.5031 21.2488 16.9501 21.0407 16.4476C20.8325 15.9451 20.4801 15.5156 20.0278 15.2135C19.5756 14.9113 19.0439 14.75 18.5 14.75H4C3.80109 14.75 3.61032 14.671 3.46967 14.5303C3.32902 14.3897 3.25 14.1989 3.25 14Z" fill="currentColor"/>
-                                            </svg>
-                                        </span> 
-                                        <span x-text="time.Nome"> Labareda</span>    
-                                    </div>
-                                    <span class="to-r" x-text="time.Pontos">999</span>                        
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                </div>            
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class="copy">
-    <img src="./logo-saga.png" width="100" alt="">
-    <div>Designed and Developed by <a href="#">Walter Melo</a></div>
-</div>
-</Layout>
-
-<style>
-    h1 {
-        font-size: 2rem;
-        text-transform: uppercase;
-        text-align: center;
-        animation: fade-in 1s;
-        animation-fill-mode: forwards;
-        animation-timing-function: ease-in-out;
-        text-wrap: nowrap;
-        padding: 2rem 0;
-        padding-top: 0rem;
-    }
-    
-    
-    
-    @keyframes fade-in {
-        from {
-            opacity: 0%;
-        }
-        to {
-            opacity: 100%;
-        }
-    }
-    
-    @keyframes fade-in-grow {
-        0% {
-            opacity: 0%;
-            transform: scale(0);
-        }
-        75% {
-            opacity: 100%;
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-            opacity: 100%;
-        }
-    }
-    
-    h1 span {
-        font-size: 3rem;
-        background: #bf2626;
-        background: linear-gradient(90deg,rgba(191, 38, 38, 1) 0%, rgba(222, 181, 31, 1) 37%, rgba(255, 255, 255, 1) 70%, rgba(83, 237, 211, 1) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    
-    .to-r {
-        text-align: right;
-        display: flex;
-        justify-content: end;
-        align-items: center;
-    }
-    
-    .trow {
-        width: 100%;
-    }
-    
-    .grid {
+<style is:inline>
+    .campeoes {
         display: grid;
-        grid-template-columns: 0.3fr 1fr 1fr;
-    }
-    
-    .table-title {
-        font-size: 1rem;
-        opacity: 0;
-        text-transform: uppercase;
-        font-weight: 600;
-        padding: 1rem;
-        padding-bottom: 1rem;
-        animation: fade-in 1s;
-        animation-fill-mode: forwards;
-        animation-timing-function: ease-in-out;
-        animation-delay: 0.5s;
-        text-wrap: nowrap;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: start;
+        gap: 1rem;
+        width: fit-content;
+        margin: auto;
+        height: 25rem;
     }
 
-    .rank {
-        font-size: 1.5rem !important;
+    .campeoes > *:nth-child(2) {
+        align-items: start;
     }
     
-    .team {
-        padding: 1rem;
-        border-radius: 8px;
-        font-size: 1.2rem;
-        font-weight: 500;
-        animation: fade-in-grow 1s;
-        animation-fill-mode: forwards;
-        animation-delay: calc(var(--stagger) / 16);
-        animation-timing-function: ease-in-out;
-        opacity: 0;
-        height: 2rem;
-    }
-    
-    .team:hover {
-        filter: brightness(1.2);
-    }
-    
-    .icon {
+    .campeoes > * {
+        display: flex;
+        height: 100%;
         display: flex;
         align-items: center;
-        justify-content: center; 
-        width: 1rem;  
+        justify-content: center;
     }
     
-    .Fogo {
-        background-color: #bf2626;
-        border: 1px solid #ff0000;
+    .outros {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 1rem;
     }
-    .Terra {
-        background-color: #b87537;
-        border: 1px solid #ff9100;
-        color: black;
+
+    @media (max-width: 990px) {
+        .outros {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            row-gap: 6rem;
+        }
     }
-    .Ar {
-        background-color: #bbbbbb;
-        border: 1px solid #ffffff;
-        color: black;
-    }
-    .Agua {
-        background-color: #266dbf;
-        border: 1px solid #001aff;
-    }
-    
-    .teams {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .align {
-        display: flex;
-        gap: 0.8rem;
-        align-items: center;
-    }
-    
-    .copy {
-        display: flex;
-        justify-content: space-between;
-        padding: 2rem 0;
-        animation: fade-in 1s;
-        animation-fill-mode: forwards;
-        animation-timing-function: ease-in-out;
-        animation-delay: 1s;
-        opacity: 0;
-    }
-    
+
     @media (max-width: 550px) {
-        h1 {
-            font-size: 2rem;
-        }
-        
-        h1 span {
-            font-size: 2.5rem;
-        }
-        
-        .copy {
+        .outros {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            text-align: center;
-            align-items: center;
+            gap: 2rem;
         }
     }
     
-    .copy a {
-        color: orange;
-    }
 </style>
+
+<Layout>
+    <Background/>
+    <Titulo/>
+    
+    <div x-init="equipes = await buscarTimes()" x-data="{equipes: []}">
+        <div class="wrapper" x-show="equipes.length > 0" x-transition x-cloak>
+            <div class="campeoes">
+                <div class="prata">
+                    <template x-for="(equipe, i) in equipes.filter((e, i) => i == 1)">
+                        <Equipe rank="2"/>
+                    </template>
+                </div>
+                <div class="ouro" style="--logo-width: 6rem">
+                    <template x-for="(equipe, i) in equipes.filter((e, i) => i == 0)">
+                        <Equipe rank="1"/>
+                    </template>
+                </div>
+                <div class="bronze">
+                    <template x-for="(equipe, i) in equipes.filter((e, i) => i == 2)">
+                        <Equipe rank="3"/>
+                    </template>
+                </div>
+            </div>
+            
+            <Divider/>
+            
+            <div class="outros">
+                <template x-for="(equipe, i) in equipes.filter((e, i) => i > 2)">
+                    <Equipe/>
+                </template>
+            </div>
+            
+            <Copyrigth/>
+        </div>
+    </div>
+</Layout>

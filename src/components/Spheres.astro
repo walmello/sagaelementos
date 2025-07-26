@@ -1,0 +1,60 @@
+<style>
+    .sphere {
+        --size: 20rem;
+        width: var(--size);
+        height: var(--size);
+        border-radius: 100%;
+        filter: blur(calc(var(--size) / 2));
+        position: absolute;
+        animation: float 4s ease-in-out infinite;
+        opacity: 0;
+        transition: 0.5 ease-in-out;
+    }
+    
+    .sphere-wrapper {
+        width: 90vw;
+        height: 50rem;
+        max-height: 100vh;
+        max-width: 1200px;
+        animation: rotate 40s linear forwards infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+    }
+    
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes float {
+            0% {
+                box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+                transform: translatey(0px);
+                opacity: 0.9;
+            }
+            50% {
+                box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+                transform: translatey(-20px);
+                opacity: 1;
+            }
+            100% {
+                box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+                transform: translatey(0px);
+                opacity: 0.9;
+            }
+        }
+</style>
+
+<div class="sphere-wrapper">
+    <div class="sphere" style="background-color: #EE2A2A; left: 0; top: 0; animation-duration: 5s;"></div>
+    <div class="sphere" style="background-color: #25B22E; right: 0; top: 0; animation-duration: 4s;"></div>
+    <div class="sphere" style="background-color: white; right: 0; bottom: 0; animation-duration: 6s;"></div>
+    <div class="sphere" style="background-color: #57BADE; left: 0; bottom: 0; animation-duration: 8s;"></div>
+</div>

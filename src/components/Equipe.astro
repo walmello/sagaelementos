@@ -1,0 +1,169 @@
+---
+import Elemento from './Elemento.astro';
+import Emblema from './Emblema.astro';
+import Logo from './Logo.astro';
+import Medalha from './Medalha.astro';
+import Pontos from './Pontos.astro';
+---
+
+<style is:global>    
+    .equipe {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .equipe > * {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }   
+    
+    .nome {
+        font-size: 1.2rem;
+    }
+    
+    p {
+        margin: 0;
+    }
+    
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .campeoes .info {
+        margin-top: -2rem;
+        gap: 0rem;
+    }
+
+    .outros .info {
+        margin-top: 4rem;
+        gap: 1rem;
+    }
+    
+    .Fogo {
+        --element-color: #DD0000;
+    }
+    .Terra {
+        --element-color: #1ADD00;
+    }
+    .Agua {
+        --element-color: #00DDDD;
+    }
+    .Ar {
+        --element-color: #fdfdfd;
+    }
+    
+    
+    .outros .equipe {
+        background: #CACACA;
+        background: linear-gradient(179deg,rgba(202, 202, 202, 0.2) 0%, rgba(99, 99, 99, 0.2) 100%);
+        backdrop-filter: blur(2rem);
+        display: flex;
+        position: relative;
+        padding: 1rem;
+        border-radius: 1rem;
+        padding-bottom: 4rem;
+        border: 1px solid rgba(202, 202, 202, 0.2);
+    }
+
+    .outros .emblem-wrapper {
+        position: absolute;
+        top: -3rem;
+    }
+
+    .outros .pontos-wrapper {
+        position: absolute;
+        bottom: -1rem;
+    }
+
+    .medal-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0rem;
+    }
+
+    .outros .medal-wrapper {
+        margin: -1rem;
+    }
+
+    .nome {
+        height: 2.5em;
+        display: flex;
+        align-items: center;
+    }
+
+    @media (max-width: 550px) {
+        .outros .equipe {
+            display: grid;
+            flex-direction: row;
+            margin: 0;
+            padding: 0;
+            margin-left: 5rem;
+            padding-left: 5rem;
+            margin-right: 2rem;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+            padding-top: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        .outros .emblema {
+            height: fit-content;
+        }
+
+        .outros .info {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            margin: 0;
+            width: 20rem;
+            justify-content: start;
+        }
+
+        .outros .emblem-wrapper {
+            position: absolute;
+            margin: 0;
+            top: unset;
+            left: -3rem;
+        }
+
+        .outros .medal-wrapper {
+            position: static;
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+        }
+
+        .outros .pontos-wrapper {
+            position: absolute;
+            right: 2rem;
+        }
+    }    
+</style>
+
+<div class="equipe" :class="equipe.Elemento.value">    
+    <div class="emblem-wrapper">
+        <Emblema/>
+    </div>
+    <div class="info">
+        <div class="medal-wrapper">
+            <div class="show">
+                <Medalha/>
+            </div>
+            <p class="nome" x-text="equipe.Nome" class="nome">
+                Nome da equipe
+            </p>
+
+        </div>
+        <Elemento/>
+    </div>
+    <div class="pontos-wrapper">
+        <Pontos/>
+    </div>
+</div>
+</div>

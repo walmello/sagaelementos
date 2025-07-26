@@ -10,7 +10,8 @@ async function buscarTimes(){
 
     const data = await result.json();
     const times = await data.results.filter(el => el.Nome);
-    const ordered = await times.sort((a, b) => a.Pontos - b.Pontos).reverse()
+    const ordered = await times.sort((a, b) => a.Pontos - b.Pontos)
+    console.log(ordered)
     return ordered
 }
 

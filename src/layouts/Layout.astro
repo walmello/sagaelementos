@@ -19,6 +19,8 @@
 </html>
 
 <style is:global>
+	
+	
 	html,
 	body {
 		font-family: Montserrat, sans-serif;
@@ -33,26 +35,34 @@
 		padding: 2rem;
 		box-sizing: border-box;
 		overflow-x: hidden;
+		font-weight: 700;
 	}
 	
 	.container {
-		max-width: 80vw;
-		width: 640px;
+		max-width: 90vw;
+		width: 980px;
 		margin: auto;
 		min-height: 80vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		align-items: center;
 		gap: 1rem;
+		text-align: center;
 	}
-	
-	
 
-	@media (min-width: 551px) {
-		* {
-			transition: all 0.2s ease-in-out;
-		}
+	.container > * {
+		width: 100%;
 	}
+	
+	[x-cloak] { display: none !important; }
+	
+	* {
+		transition: all 0.2s ease-in-out;
+		margin: 0;
+		padding: 0;
+	}
+	
 	
 	
 	@media (max-width: 550px) {

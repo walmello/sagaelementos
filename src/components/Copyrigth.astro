@@ -1,0 +1,27 @@
+<style>
+    .copy {
+        display: flex;
+        justify-content: space-between;
+        padding: 2rem 0;
+        animation: fade-in 1s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in-out;
+        animation-delay: 1s;
+        width: 100%;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 550px) {
+        .copy {
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+    }
+</style>
+
+<div class="copy">
+    <img src="./logo-saga.png" width="100" alt="">
+    <div>Designed and Developed by <a href="#">Walter Melo</a></div>
+</div>

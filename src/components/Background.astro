@@ -1,0 +1,27 @@
+---
+import SagaFundo from "./SagaFundo.astro";
+import Spheres from "./Spheres.astro";
+---
+
+<style>
+    .background {
+        width: 100vw;
+        height: 100svh;
+        box-sizing: border-box;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        padding-top: 4rem;
+        transition: all 0s;
+        z-index: -1;
+    }
+</style>
+
+<div class="background">
+    <Spheres/>
+    <SagaFundo/>    
+</div>
