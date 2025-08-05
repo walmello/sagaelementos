@@ -2,4 +2,5 @@
 
 ## Coisas pra fazer ainda
 
-acertar a performance no mobile. reduzir as animações
+ - Acertar a ordem das equipes.
+ - ordenar por quantidade de pontos SEMPRE
