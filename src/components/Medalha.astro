@@ -52,28 +52,28 @@
             margin-left: 1rem;
         }
 
-        .medalha {
-
+        .laurel {
+            display: none !important;
         }
     }
 
 </style>
 
-<div class="medalha ouro" x-show="parseInt(equipe.order) == 1">
+<div class="medalha ouro" x-show="equipe.rank == 1">
     <img class="laurel" src="./images/medalha/gold laurel.svg" alt="">
-    <span x-text="parseInt(equipe.order)"></span>
+    <span x-text="parseInt(equipe.rank)"></span>
 </div>
 
-<div class="medalha prata" x-show="parseInt(equipe.order) == 2">
+<div class="medalha prata" x-show="equipe.rank == 2">
     <img class="laurel" src="./images/medalha/silver laurel.svg" alt="">
-    <span x-text="parseInt(equipe.order)"></span>
+    <span x-text="parseInt(equipe.rank)"></span>
 </div>
 
-<div class="medalha bronze" x-show="parseInt(equipe.order) == 3">
+<div class="medalha bronze" x-show="equipe.rank == 3">
     <img class="laurel" src="./images/medalha/bronze laurel.svg" alt="">
-    <span x-text="parseInt(equipe.order)"></span>
+    <span x-text="parseInt(equipe.rank)"></span>
 </div>
 
-<div class="position" x-show="parseInt(equipe.order) > 3">
-    <span x-text="parseInt(equipe.order)"></span>
+<div class="position" x-show="equipe.rank > 3">
+    <span x-text="parseInt(equipe.rank)"></span>
 </div>
